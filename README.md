@@ -1,2 +1,1 @@
 # Tetris
-Simple Tetris Game
