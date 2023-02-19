@@ -1,0 +1,440 @@
+<!-- tetris game -->
+<html>
+
+<head>
+    <title>Tetris</title>
+
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet" />
+
+        <style>
+            /* * {
+                font-family: "Press Start 2P",
+                    cursive;
+            } */
+
+            .grid {
+                display: grid;
+                grid-template-columns: 320px 200px;
+            }
+
+            .right-column {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
+            body {
+                background-color: #2E3440;
+                margin: 0;
+                padding: 0;
+            }
+
+            canvas {
+                display: block;
+                margin: 0 auto;
+                border: #FFF solid 4px;
+            }
+
+            .container {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+            }
+
+            .menu {
+                /* put on the right side of the screen */
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .menu2 {
+                /* put on the right side of the screen */
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .menu3 {
+                /* put on the right side of the screen */
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .menu4 {
+                /* put on the right side of the screen */
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .menu5 {
+                /* put on the right side of the screen */
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .menu h1 {
+                color: #FFF;
+                font-size: 50px;
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+                padding-bottom: 25px;
+            }
+
+            .btn {
+                text-align: center;
+                background-color: rgb(38, 38, 38);
+                background-color: #4C566A;
+                font-family: Signika Negative, sans-serif;
+                color: #FFF;
+                border: none;
+                text-align: center;
+                cursor: pointer;
+                padding: 0;
+                margin: 25px 30px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 900;
+                outline: none;
+                position: relative;
+                border: solid 1px transparent;
+                border-radius: 10px;
+                -webkit-font-smoothing: antialiased;
+                height: 75px;
+                width: 150px;
+            }
+
+            .game-over {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 100%;
+                height: 100%;
+                color: #FFF;
+                font-family: Signika Negative, sans-serif;
+                font-size: 50px;
+                background-color: rgba(0, 0, 0, 0.7);
+                z-index: 100;
+            }
+
+            .title {
+                font-size: 50px;
+                margin: 0;
+                padding: 0;
+                font-family: Signika Negative, sans-serif;
+                padding-bottom: 25px;
+            }
+
+            .scores {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                display: flex;
+                font-family: Signika Negative, sans-serif;
+                color: #FFF;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
+                width: 30vw;
+                height: 100%;
+            }
+
+            .btn-3 {
+                text-align: center;
+                /* background-color: rgb(38, 38, 38); */
+                background-color: #4C566A;
+                font-family: Signika Negative, sans-serif;
+                color: #FFF;
+                height: 75px;
+                width: 150px;
+                line-height: 72px;
+                cursor: pointer;
+                padding: 0;
+                margin: 25px 30px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-weight: 900;
+                outline: none;
+                position: relative;
+                border: none;
+                /* border-radius: 10px; */
+                -webkit-font-smoothing: antialiased;
+
+            }
+
+            /* .btn-3 {
+                background: rgb(0, 172, 238);
+                background: linear-gradient(0deg, rgba(0, 172, 238, 1) 0%, rgba(2, 126, 251, 1) 100%);
+                width: 130px;
+                height: 40px;
+                line-height: 42px;
+                padding: 0;
+                border: none;
+
+            } */
+
+            .btn-3 span {
+                position: relative;
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            .btn-3:before,
+            .btn-3:after {
+                position: absolute;
+                content: "";
+                right: 0;
+                top: 0;
+                background: rgb(255, 255, 255);
+                transition: all 0.5s ease;
+            }
+
+            .btn-3:before {
+                height: 0%;
+                width: 2px;
+            }
+
+            .btn-3:after {
+                width: 0%;
+                height: 2px;
+            }
+
+            .btn-3:hover {
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .btn-3:hover:before {
+                height: 100%;
+            }
+
+            .btn-3:hover:after {
+                width: 100%;
+            }
+
+            .btn-3 span:hover {
+                color: rgb(255, 255, 255);
+            }
+
+            .btn-3 span:before,
+            .btn-3 span:after {
+                position: absolute;
+                content: "";
+                left: 0;
+                bottom: 0;
+                background: rgb(255, 255, 255);
+                transition: all 0.5s ease;
+            }
+
+            .btn-3 span:before {
+                width: 2px;
+                height: 0%;
+            }
+
+            .btn-3 span:after {
+                width: 0%;
+                height: 2px;
+            }
+
+            .btn-3 span:hover:before {
+                height: 100%;
+            }
+
+            .btn-3 span:hover:after {
+                width: 100%;
+            }
+
+            #tutorial {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+
+            /* The Modal (background) */
+            .modal {
+                font-family: Signika Negative, sans-serif;
+                -webkit-font-smoothing: antialiased;
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                /* Stay in place */
+                z-index: 1;
+                /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* Full width */
+                height: 100%;
+                /* Full height */
+                overflow: auto;
+                /* Enable scroll if needed */
+                background-color: #333944;
+                /* Fallback color */
+                background-color: rgba(0, 0, 0, 0.9);
+                /* Black w/ opacity */
+                opacity: 0.9;
+            }
+
+            /* Modal Content/Box */
+            .modal-content {
+                /* background-color: rgba(0, 0, 0, 0.7); */
+                border: 3px solid #FFF;
+                margin: 15% auto;
+                /* 15% from the top and centered */
+                padding: 20px;
+                width: 80%;
+                /* Could be more or less, depending on screen size */
+                text-align: center;
+                max-width: 500px;
+                max-height: fit-content;
+                font-size: larger;
+                color: #FFF;
+                opacity: 1;
+            }
+
+            .modal-content p span {
+                font-weight: bold;
+            }
+            /* The Close Button */
+            .close {
+                color: #FFF;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: #AAA;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+
+<body>
+    <div class="container">
+        <canvas id="canvas" width="450" height="900"></canvas>
+    </div>
+    <div class="menu" id="menu">
+        <h1 class="title" style="font-size: 70px;">Tetris</h1>
+        <button class='btn-3' id="start"><span>Start</span></button>
+        <button class='btn-3' id="pause"><span>Pause</span></button>
+        <button class='btn-3' id="resume"><span>Resume</span></button>
+        <button class='btn-3' id="settings"><span>Settings</span></button>
+        <canvas style="padding: 25px;" id="next" width="180" height="180"></canvas>
+    </div>
+
+    <div class="menu2" id="menu2">
+        <button class='btn-3' id="difficulty"><span>Difficulty</span></button>
+        <button class='btn-3' id="colors"><span>Colors</span></button>
+        <button class='btn-3' id="back"><span>Back</span></button>
+    </div>
+
+    <div class="menu3" id="menu3">
+        <button class='btn-3' id="Easy"><span>Easy</span></button>
+        <button class='btn-3' id="Medium"><span>Medium</span></button>
+        <button class='btn-3' id="Hard"><span>Hard</span></button>
+        <button class='btn-3' id="back2"><span>Back</span></button>
+    </div>
+
+    <div class="menu4" id="menu4">
+        <button class='btn-3' id="Tetris"><span>OG Tetris</span></button>
+        <button class='btn-3' id="Anthropoid Coloring"><span>Anthropoid</span></button>
+        <button class='btn-3' id="purple"><span>Purple</span></button>
+        <button class='btn-3' id="cyber"><span>Cyber</span></button>
+        <button class='btn-3' id="Retro"><span>Retro</span></button>
+        <button class='btn-3' id="chazichasm"><span>Chazhichasm</span></button>
+        <button class='btn-3' id="back3"><span>Back</span></button>
+    </div>
+
+    <div class="scores">
+        <h1 id="level" style="font-size: 50px;">Level: 0</h1>
+        <h1 id="lines" style="font-size: 50px;">Lines: 0</h1>
+        <canvas style="padding: 25px; margin-top: 25px;" id="hold" width="150" height="150"></canvas>
+        <button class="btn-3" id="tutorial"><span>Tutorial</span></button>
+    </div>
+    <div class="game-over" id="game-over">
+        <h1 style="font-size: 50px;">Game Over</h1>
+        <button class='btn-3' id="restart"><span>Restart</span></button>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p style="font-weight: bolder;">Controls</p>
+            <p><span>Movement:</span> Arrow Keys</p>
+            <p><span>Rotation:</span> Up Arrow Key</p>
+            <p><span>Rotate Left:</span> Z</p>
+            <p><span>Rotate Right:</span> X</p>
+            <p><span>Soft Drop:</span> Down Arrow Key</p>
+            <p><span>Hard Drop:</span> Space Bar</p>
+            <p><span>Hold:</span> C or CTRL</p>
+        </div>
+
+    </div>
+
+    <script src="constants.js"></script>
+    <script src="piece.js"></script>
+    <script src="board.js"></script>
+    <script src="main.js"></script>
+</body>
